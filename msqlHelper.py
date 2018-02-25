@@ -9,7 +9,8 @@ class MysqlHelper():
                                       )
         cursor = self.conn.cursor()
         try:
-            cursor.execute('create table user(name varchar(20) primary key,password varchar(40))')
+            # cursor.execute('create table user(name varchar(20) primary key,password varchar(40))')
+            pass
         except Exception as e:
             print(e.args)
         # cursor.execute('insert into table user(name,password) values(%s,%s)',[test,password])
@@ -42,6 +43,7 @@ class MysqlHelper():
         csl.close()
         self.conn.close()
         return row
+
     def fetchall(self,sql,params):
         csl = self.conn.cursor()
         csl.execute(sql,params)

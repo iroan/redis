@@ -8,19 +8,37 @@
 from redisHelper import RedisHelper
 import hashlib
 
-name = input('请输入登录名:')
-pwd = input('请输入登录密码:')
 
-sha1 = hashlib.sha1()
-sha1.update(pwd)
-pwd1 = sha1.hexdigest()
+class SimulateSignin():
+    def __init__(self):
+        self.name = input('请输入登录名:')
+        pwd = input('请输入登录密码:')
 
-try:
-    r = RedisHelper()
-    if r.get('uname') == name:
-        print('ok')
-    else:
-        pass
-except Exception as e:
-    print(e.args)
+        sha1 = hashlib.sha1()
+        sha1.update(pwd.encode())
+        self.pwd = sha1.hexdigest()
 
+        print('name = %s,password = %s',self.name,self.pwd)
+
+    def runRedis(self):
+        try:
+            r = RedisHelper()
+            if r.get('uname') == self.name:
+                print('登录成功')
+            else:
+                print('Redis数据库中没有找到数据,前往MySQL中查找')
+                self.runMysql()
+        except Exception as e:
+            print(e.args)
+
+    def runMysql(self):
+        from msqlHelper import MysqlHelper
+        m = MysqlHelper('root', 'iroanMYS47')
+        res = m.fetchone('select password from user where name = %s;', [self.name])
+        print('password in mysql = %s',res)
+        if res[0] == self.pwd:
+            print('登录成功')
+
+if __name__ == '__main__':
+    s = SimulateSignin()
+    s.runRedis()
