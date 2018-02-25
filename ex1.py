@@ -24,8 +24,18 @@ def ex_string():
     print(r.get('inputing').decode())
 
 
-r.lpush('name1','wangkaixuan')
-r.lpush('name1','wangkaijun')
-r.lpush('name1','chengangrong')
-r.rpush('name1','longhao')
-print(r.lrange('name1',0,-1))
+def ex_list():
+    r.lpush('name1', 'wangkaixuan')
+    r.lpush('name1', 'wangkaijun')
+    r.lpush('name1', 'chengangrong')
+    r.rpush('name1', 'longhao')
+    print(r.lrange('name1', 0, -1))
+    # r.lpop(name='name1')
+    # r.lpop(name='name1')
+    # r.rpop(name='name1')
+    # r.rpop(name='name1')
+
+    print(r.llen('name1'))
+
+
+
