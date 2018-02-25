@@ -37,5 +37,18 @@ def ex_list():
 
     print(r.llen('name1'))
 
+def ex_set():
+    r.sadd('name2', 'wangkaixuan')
+    r.sadd('name2', 'wangkaijun')
+    print(r.smembers('name2'))
+    r.sadd('name2', 'wangkaijun')
+    r.sadd('name2', 'wangkaijun')
+    r.sadd('name2', 'chengangrong')
+    print(r.smembers('name2'))
+    r.srem('name2', 'chengangrong')
+    print(r.smembers('name2'))
+    print(r.sismember('name2', 'chengangrong'))
+    print(r.sismember('name2', 'wangkaixuan'))
+
 
 
